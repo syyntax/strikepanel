@@ -1,23 +1,107 @@
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900&display=swap');
+
+/* Font Styling */
+.roboto-thin { font-family: "Roboto", sans-serif; font-weight: 100; }
+.roboto-light { font-family: "Roboto", sans-serif; font-weight: 300; }
+.roboto-regular { font-family: "Roboto", sans-serif; font-weight: 400; }
+.roboto-medium { font-family: "Roboto", sans-serif; font-weight: 500; }
+.roboto-bold { font-family: "Roboto", sans-serif; font-weight: 700; }
+.roboto-black { font-family: "Roboto", sans-serif; font-weight: 900; }
+
+/* Base Styling */
 body {
+  background-color: var(--bg-color);
+  color: var(--input-text);
   font-family: 'Roboto', sans-serif;
-  background-color: #121212;
-  color: #eaeaea;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
-.navbar-brand {
-  font-weight: 700;
+/* Theme Colors */
+:root {
+  --primary-color: #0ff;
+  --secondary-color: #ff00ff;
+  --accent-color: #00ff00;
+  --bg-color: #0d0d0d;
+  --card-bg: #1a1a1a;
+  --input-bg: #262626;
+  --input-text: #ffffff;
+  --hover-color: #ff66ff;
+  --danger-color: #ff004d;
+  --success-color: #00ff7f;
+  --warning-color: #ffcc00;
+}
+
+/* General Elements */
+a {
+  color: var(--primary-color);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--hover-color);
 }
 
 .btn-primary {
-  background-color: #007bff;
-  border-color: #007bff;
+  background-color: var(--primary-color);
+  border: none;
+}
+
+.btn-primary:hover {
+  background-color: var(--hover-color);
+}
+
+.btn-secondary {
+  background-color: var(--secondary-color);
+  border: none;
+}
+
+.btn-secondary:hover {
+  background-color: var(--hover-color);
+}
+
+input.form-control {
+  background-color: var(--input-bg);
+  color: var(--input-text);
+  border: 1px solid var(--secondary-color);
+}
+
+input.form-control:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 0.2rem rgba(0, 255, 255, 0.25);
 }
 
 .card {
-  background-color: #1e1e1e;
-  border: 1px solid #2e2e2e;
+  background-color: var(--card-bg);
+  color: var(--input-text);
+  border: 1px solid var(--primary-color);
+  box-shadow: 0px 0px 10px rgba(0, 255, 255, 0.5);
+  border-radius: 8px;
+}
+
+.navbar, .footer {
+  background-color: var(--bg-color);
 }
 
 .alert {
   font-family: 'Roboto', sans-serif;
+}
+
+.alert-danger {
+  background-color: var(--danger-color);
+  color: var(--bg-color);
+}
+
+.alert-success {
+  background-color: var(--success-color);
+  color: var(--bg-color);
+}
+
+.alert-warning {
+  background-color: var(--warning-color);
+  color: var(--bg-color);
 }
