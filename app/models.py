@@ -2,19 +2,14 @@ from app import db, bcrypt
 from flask_login import UserMixin
 from datetime import datetime
 
-# User model
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
     
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(120), unique=True, nullable=False)
     password_hash = db.Column(db.String(128), nullable=False)
-    first_name = db.Column(db.String(50), nullable=True)
-    last_name = db.Column(db.String(50), nullable=True)
     is_admin = db.Column(db.Boolean, default=False)
-    created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
-    # Hash the password before storing it
     @property
     def password(self):
         raise AttributeError('Password is not a readable attribute.')

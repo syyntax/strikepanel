@@ -8,7 +8,7 @@
         <h2 class="roboto-bold">Register</h2>
         <form method="POST" action="{{ url_for('auth.register') }}">
             {{ form.hidden_tag() }}
-            
+
             <div class="form-group">
                 {{ form.email.label(class="roboto-medium") }}
                 {{ form.email(class="form-control") }}

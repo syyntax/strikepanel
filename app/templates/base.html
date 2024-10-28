@@ -5,18 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{% block title %}StrikePanel{% endblock %}</title>
-    
-    <!-- Import Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
-    
-    <!-- Import CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-
-    <!-- CSRF Token for forms -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 <body>
-    <!-- Navigation Bar -->
     <nav class="navbar">
         <div class="nav-container">
             <a href="{{ url_for('main.index') }}" class="nav-logo roboto-bold">StrikePanel</a>
@@ -36,19 +29,13 @@
         </div>
     </nav>
 
-    <!-- Main Content -->
     <div class="content">
         {% block content %}
-        <!-- Page-specific content goes here -->
         {% endblock %}
     </div>
 
-    <!-- Footer -->
     <footer class="footer">
         <p class="roboto-light">© {{ current_year }} StrikePanel. All rights reserved.</p>
     </footer>
-
-    <!-- Import JavaScript -->
-    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
 </body>
 </html>
