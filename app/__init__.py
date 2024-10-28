@@ -1,7 +1,7 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from flask_login import LoginManager
 from flask_migrate import Migrate
+from flask_login import LoginManager
 from flask_bcrypt import Bcrypt
 from flask_wtf.csrf import CSRFProtect
 from config import Config
@@ -12,6 +12,17 @@ migrate = Migrate()
 login_manager = LoginManager()
 bcrypt = Bcrypt()
 csrf = CSRFProtect()
+
+# Patch for Flask-Login to be compatible with Werkzeug 3.0+
+import werkzeug
+import flask_login.utils
+
+def new_url_decode(value, charset='utf-8', errors='replace', separator='&'):
+    return werkzeug.datastructures.MultiDict(
+        werkzeug.urls.url_parse(value).query_params.items(multi=True)
+    )
+
+flask_login.utils.url_decode = new_url_decode
 
 def create_app(config_class=Config):
     # Create Flask app
@@ -44,7 +55,7 @@ def create_app(config_class=Config):
     app.register_blueprint(tasks_bp)
     app.register_blueprint(api_bp)
 
-    # Create database tables
+    # Create database tables if not already present
     with app.app_context():
         db.create_all()
 
