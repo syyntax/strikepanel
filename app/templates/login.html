@@ -3,56 +3,34 @@
 {% block title %}Login{% endblock %}
 
 {% block content %}
-<div class="d-flex justify-content-center align-items-center min-vh-100">
-    <div class="card p-4 shadow-lg" style="width: 100%; max-width: 400px; border-radius: 12px; background-color: #1a1a1a;">
-        <div class="card-body">
-            <h2 class="roboto-bold text-center text-primary mb-4">Log In</h2>
-            <p class="text-center roboto-regular text-muted mb-4">Welcome back! Please enter your credentials to continue.</p>
-            
-            <form method="POST" action="{{ url_for('auth.login') }}">
-                {{ form.hidden_tag() }}
+<div class="login-container">
+    <div class="login-card shadow-lg">
+        <h1 class="roboto-bold text-primary mb-4">Log In</h1>
+        <form method="POST" action="{{ url_for('auth.login') }}">
+            {{ form.hidden_tag() }}
 
-                <!-- Email Field -->
-                <div class="mb-3">
-                    {{ form.email.label(class="form-label roboto-medium text-light") }}
-                    {{ form.email(class="form-control form-control-lg", style="border-radius: 8px;") }}
-                    {% for error in form.email.errors %}
-                        <div class="text-danger mt-1 roboto-light">{{ error }}</div>
-                    {% endfor %}
-                </div>
+            <!-- Email Field -->
+            <div class="mb-3">
+                {{ form.email(class="form-control", placeholder="Email", style="border-radius: 5px;") }}
+                {% for error in form.email.errors %}
+                    <div class="text-danger mt-1 roboto-light">{{ error }}</div>
+                {% endfor %}
+            </div>
 
-                <!-- Password Field -->
-                <div class="mb-3">
-                    {{ form.password.label(class="form-label roboto-medium text-light") }}
-                    {{ form.password(class="form-control form-control-lg", style="border-radius: 8px;") }}
-                    {% for error in form.password.errors %}
-                        <div class="text-danger mt-1 roboto-light">{{ error }}</div>
-                    {% endfor %}
-                </div>
+            <!-- Password Field -->
+            <div class="mb-3">
+                {{ form.password(class="form-control", placeholder="Password", style="border-radius: 5px;") }}
+                {% for error in form.password.errors %}
+                    <div class="text-danger mt-1 roboto-light">{{ error }}</div>
+                {% endfor %}
+            </div>
 
-                <!-- Remember Me Checkbox -->
-                <div class="form-check mb-3">
-                    {{ form.remember(class="form-check-input", style="border-radius: 4px;") }}
-                    {{ form.remember.label(class="form-check-label roboto-medium text-light ms-1") }}
-                </div>
+            <!-- Submit Button -->
+            <button type="submit" class="btn btn-primary btn-lg w-100 mb-2" style="border-radius: 5px;">Login</button>
 
-                <!-- Submit Button -->
-                <div class="d-grid">
-                    {{ form.submit(class="btn btn-primary btn-lg", style="border-radius: 8px;") }}
-                </div>
-            </form>
-
-            <p class="text-center mt-4 roboto-light">Don't have an account? 
-                <a href="{{ url_for('auth.register') }}" class="text-primary">Register</a>
-            </p>
-        </div>
+            <!-- Forgot Password Link -->
+            <a href="#" class="text-light roboto-light">Forgot Password?</a>
+        </form>
     </div>
 </div>
-
-<!-- Fixed Footer -->
-<footer class="bg-dark text-light py-3 fixed-bottom" style="border-top: 1px solid #2e2e2e;">
-    <div class="container text-center">
-        <p class="mb-0 roboto-light">© {{ current_year }} StrikePanel. All rights reserved.</p>
-    </div>
-</footer>
 {% endblock %}
