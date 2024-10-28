@@ -14,6 +14,7 @@ bcrypt = Bcrypt()
 csrf = CSRFProtect()
 
 def create_app(config_class=Config):
+    # Create Flask app
     app = Flask(__name__)
     app.config.from_object(config_class)
 
@@ -24,9 +25,16 @@ def create_app(config_class=Config):
     bcrypt.init_app(app)
     csrf.init_app(app)
 
-    # Set up login manager
+    # Set up Flask-Login
     login_manager.login_view = 'auth.login'
     login_manager.login_message_category = 'info'
+
+    # User loader callback for Flask-Login
+    from app.models import User
+
+    @login_manager.user_loader
+    def load_user(user_id):
+        return User.query.get(int(user_id))
 
     # Register blueprints
     from app.routes.auth import auth_bp
