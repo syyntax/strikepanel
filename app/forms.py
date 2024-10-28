@@ -42,3 +42,32 @@ class LoginForm(FlaskForm):
     )
     remember = BooleanField('Remember Me')
     submit = SubmitField('Log In')
+
+class UpdateProfileForm(FlaskForm):
+    first_name = StringField(
+        'First Name',
+        validators=[Length(max=50)]
+    )
+    last_name = StringField(
+        'Last Name',
+        validators=[Length(max=50)]
+    )
+    submit = SubmitField('Update Profile')
+
+class ChangePasswordForm(FlaskForm):
+    old_password = PasswordField(
+        'Old Password',
+        validators=[DataRequired()]
+    )
+    new_password = PasswordField(
+        'New Password',
+        validators=[DataRequired(), Length(min=8)]
+    )
+    confirm_password = PasswordField(
+        'Confirm New Password',
+        validators=[
+            DataRequired(),
+            EqualTo('new_password', message='Passwords must match.')
+        ]
+    )
+    submit = SubmitField('Change Password')
