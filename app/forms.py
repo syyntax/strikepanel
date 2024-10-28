@@ -93,3 +93,22 @@ class ProjectForm(FlaskForm):
         validators=[DataRequired()]
     )
     submit = SubmitField('Save Project')
+
+class TaskForm(FlaskForm):
+    name = StringField(
+        'Task Name',
+        validators=[DataRequired(), Length(max=100)]
+    )
+    phase = SelectField(
+        'Phase',
+        choices=[
+            ('planning', 'Planning & Preparation'),
+            ('recon', 'Reconnaissance'),
+            ('vuln_analysis', 'Vulnerability Analysis'),
+            ('exploitation', 'Exploitation'),
+            ('post_exploitation', 'Post-Exploitation'),
+            ('reporting', 'Reporting')
+        ],
+        validators=[DataRequired()]
+    )
+    submit = SubmitField('Save Task')

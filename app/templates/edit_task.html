@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}Edit Task{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="card">
+        <h2 class="roboto-bold">Edit Task for {{ project.name }}</h2>
+        <form method="POST" action="{{ url_for('tasks.edit', task_id=task.id) }}">
+            {{ form.hidden_tag() }}
+
+            <div class="form-group">
+                {{ form.name.label(class="roboto-medium") }}
+                {{ form.name(class="form-control") }}
+                {% for error in form.name.errors %}
+                    <div class="alert-danger">{{ error }}</div>
+                {% endfor %}
+            </div>
+
+            <div class="form-group">
+                {{ form.phase.label(class="roboto-medium") }}
+                {{ form.phase(class="form-control") }}
+                {% for error in form.phase.errors %}
+                    <div class="alert-danger">{{ error }}</div>
+                {% endfor %}
+            </div>
+
+            <div class="form-group">
+                {{ form.submit(class="primary-btn") }}
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
