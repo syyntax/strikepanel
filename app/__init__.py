@@ -27,6 +27,7 @@ def create_app(config_class=Config):
 
     # Set up Flask-Login
     login_manager.login_view = 'auth.login'
+    login_manager.login_message = 'Please log in to access this page.'
     login_manager.login_message_category = 'info'
 
     # User loader callback for Flask-Login
