@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField
-from wtforms.validators import DataRequired, Email, EqualTo, Length
+from wtforms import StringField, TextAreaField, SelectField, SubmitField
+from wtforms.validators import DataRequired, Length, Email, EqualTo
 
 class RegistrationForm(FlaskForm):
     email = StringField(
@@ -71,3 +71,25 @@ class ChangePasswordForm(FlaskForm):
         ]
     )
     submit = SubmitField('Change Password')
+
+class ProjectForm(FlaskForm):
+    name = StringField(
+        'Project Name',
+        validators=[DataRequired(), Length(max=100)]
+    )
+    description = TextAreaField(
+        'Description',
+        validators=[Length(max=500)]
+    )
+    service_type = SelectField(
+        'Service Type',
+        choices=[
+            ('cloud', 'Cloud Penetration Testing'),
+            ('iot', 'IoT Penetration Testing'),
+            ('api', 'API Penetration Testing'),
+            ('physical', 'Physical Penetration Testing'),
+            ('red_team', 'Red Team Assessment')
+        ],
+        validators=[DataRequired()]
+    )
+    submit = SubmitField('Save Project')
