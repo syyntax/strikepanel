@@ -100,7 +100,7 @@ body {
   box-shadow: 0 4px 12px rgba(0, 204, 255, 0.4);
 }
 
-/* Forgot password link styling */
+/* Forgot password and registration link styling */
 .login-card a {
   display: block;
   margin-top: 10px;
@@ -112,6 +112,12 @@ body {
 
 .login-card a:hover {
   color: var(--hover-color);
+}
+
+.login-card p {
+  font-size: 14px;
+  margin-top: 20px;
+  color: var(--input-text);
 }
 
 /* Navbar Styling */

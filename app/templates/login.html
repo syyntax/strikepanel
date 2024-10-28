@@ -31,6 +31,13 @@
             <!-- Forgot Password Link -->
             <a href="#" class="text-light roboto-light">Forgot Password?</a>
         </form>
+
+        <!-- Registration Link -->
+        <div class="mt-4">
+            <p class="roboto-light text-light">Don't have an account? 
+                <a href="{{ url_for('auth.register') }}" class="text-primary">Register Here</a>
+            </p>
+        </div>
     </div>
 </div>
 {% endblock %}
