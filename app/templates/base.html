@@ -13,13 +13,14 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100" style="background-color: #121212;">
+
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: var(--bg-color);">
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #1a1a1a; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);">
         <div class="container-fluid">
-            <a class="navbar-brand roboto-bold" href="{{ url_for('main.index') }}">StrikePanel</a>
+            <a class="navbar-brand roboto-bold text-primary" href="{{ url_for('main.index') }}">StrikePanel</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -27,25 +28,25 @@
                 <ul class="navbar-nav ms-auto">
                     {% if current_user.is_authenticated %}
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ url_for('projects.index') }}">Projects</a>
+                            <a class="nav-link roboto-medium" href="{{ url_for('projects.index') }}">Projects</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ url_for('profile.index') }}">Profile</a>
+                            <a class="nav-link roboto-medium" href="{{ url_for('profile.index') }}">Profile</a>
                         </li>
                         {% if current_user.is_admin %}
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ url_for('admin.index') }}">Admin</a>
+                                <a class="nav-link roboto-medium" href="{{ url_for('admin.index') }}">Admin</a>
                             </li>
                         {% endif %}
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ url_for('auth.logout') }}">Logout</a>
+                            <a class="nav-link roboto-medium text-danger" href="{{ url_for('auth.logout') }}">Logout</a>
                         </li>
                     {% else %}
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ url_for('auth.login') }}">Login</a>
+                            <a class="nav-link roboto-medium" href="{{ url_for('auth.login') }}">Login</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ url_for('auth.register') }}">Register</a>
+                            <a class="nav-link roboto-medium" href="{{ url_for('auth.register') }}">Register</a>
                         </li>
                     {% endif %}
                 </ul>
@@ -54,11 +55,11 @@
     </nav>
 
     <!-- Main Content -->
-    <div class="container mt-4">
+    <main class="container mt-5 mb-4">
         {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
                 {% for category, message in messages %}
-                    <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                    <div class="alert alert-{{ category }} alert-dismissible fade show shadow-sm" role="alert" style="border-radius: 8px;">
                         {{ message }}
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
@@ -66,12 +67,12 @@
             {% endif %}
         {% endwith %}
         {% block content %}{% endblock %}
-    </div>
+    </main>
 
     <!-- Footer -->
-    <footer class="footer mt-auto py-3" style="background-color: var(--card-bg); color: var(--input-text);">
+    <footer class="bg-dark text-light py-4 mt-auto" style="border-top: 1px solid #2e2e2e;">
         <div class="container text-center">
-            <p class="roboto-light mb-0">© {{ current_year }} StrikePanel. All rights reserved.</p>
+            <p class="mb-0 roboto-light">© {{ current_year }} StrikePanel. All rights reserved.</p>
         </div>
     </footer>
 
