@@ -3,112 +3,35 @@ from wtforms import StringField, PasswordField, TextAreaField, SelectField, Bool
 from wtforms.validators import DataRequired, Length, Email, EqualTo
 
 class RegistrationForm(FlaskForm):
-    email = StringField(
-        'Email',
-        validators=[
-            DataRequired(),
-            Email(message='Enter a valid email.'),
-            Length(max=120)
-        ]
-    )
-    password = PasswordField(
-        'Password',
-        validators=[
-            DataRequired(),
-            Length(min=8, message='Password must be at least 8 characters long.')
-        ]
-    )
-    confirm_password = PasswordField(
-        'Confirm Password',
-        validators=[
-            DataRequired(),
-            EqualTo('password', message='Passwords must match.')
-        ]
-    )
+    email = StringField('Email', validators=[DataRequired(), Email(), Length(max=120)])
+    password = PasswordField('Password', validators=[DataRequired(), Length(min=8)])
+    confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('Register')
 
 class LoginForm(FlaskForm):
-    email = StringField(
-        'Email',
-        validators=[
-            DataRequired(),
-            Email(message='Enter a valid email.'),
-            Length(max=120)
-        ]
-    )
-    password = PasswordField(
-        'Password',
-        validators=[DataRequired()]
-    )
+    email = StringField('Email', validators=[DataRequired(), Email(), Length(max=120)])
+    password = PasswordField('Password', validators=[DataRequired()])
     remember = BooleanField('Remember Me')
     submit = SubmitField('Log In')
 
-class UpdateProfileForm(FlaskForm):
-    first_name = StringField(
-        'First Name',
-        validators=[Length(max=50)]
-    )
-    last_name = StringField(
-        'Last Name',
-        validators=[Length(max=50)]
-    )
-    submit = SubmitField('Update Profile')
-
-class ChangePasswordForm(FlaskForm):
-    old_password = PasswordField(
-        'Old Password',
-        validators=[DataRequired()]
-    )
-    new_password = PasswordField(
-        'New Password',
-        validators=[DataRequired(), Length(min=8)]
-    )
-    confirm_password = PasswordField(
-        'Confirm New Password',
-        validators=[
-            DataRequired(),
-            EqualTo('new_password', message='Passwords must match.')
-        ]
-    )
-    submit = SubmitField('Change Password')
-
 class ProjectForm(FlaskForm):
-    name = StringField(
-        'Project Name',
-        validators=[DataRequired(), Length(max=100)]
-    )
-    description = TextAreaField(
-        'Description',
-        validators=[Length(max=500)]
-    )
-    service_type = SelectField(
-        'Service Type',
-        choices=[
-            ('cloud', 'Cloud Penetration Testing'),
-            ('iot', 'IoT Penetration Testing'),
-            ('api', 'API Penetration Testing'),
-            ('physical', 'Physical Penetration Testing'),
-            ('red_team', 'Red Team Assessment')
-        ],
-        validators=[DataRequired()]
-    )
+    name = StringField('Project Name', validators=[DataRequired(), Length(max=100)])
+    description = TextAreaField('Description', validators=[Length(max=500)])
+    service_type = SelectField('Service Type', choices=[('cloud', 'Cloud'), ('iot', 'IoT'), ('api', 'API')], validators=[DataRequired()])
     submit = SubmitField('Save Project')
 
 class TaskForm(FlaskForm):
-    name = StringField(
-        'Task Name',
-        validators=[DataRequired(), Length(max=100)]
-    )
-    phase = SelectField(
-        'Phase',
-        choices=[
-            ('planning', 'Planning & Preparation'),
-            ('recon', 'Reconnaissance'),
-            ('vuln_analysis', 'Vulnerability Analysis'),
-            ('exploitation', 'Exploitation'),
-            ('post_exploitation', 'Post-Exploitation'),
-            ('reporting', 'Reporting')
-        ],
-        validators=[DataRequired()]
-    )
+    name = StringField('Task Name', validators=[DataRequired(), Length(max=100)])
+    phase = SelectField('Phase', choices=[('planning', 'Planning'), ('recon', 'Recon'), ('exploitation', 'Exploitation')], validators=[DataRequired()])
     submit = SubmitField('Save Task')
+
+class UpdateProfileForm(FlaskForm):
+    first_name = StringField('First Name', validators=[Length(max=50)])
+    last_name = StringField('Last Name', validators=[Length(max=50)])
+    submit = SubmitField('Update Profile')
+
+class ChangePasswordForm(FlaskForm):
+    old_password = PasswordField('Old Password', validators=[DataRequired()])
+    new_password = PasswordField('New Password', validators=[DataRequired(), Length(min=8)])
+    confirm_password = PasswordField('Confirm New Password', validators=[DataRequired(), EqualTo('new_password')])
+    submit = SubmitField('Change Password')

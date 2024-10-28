@@ -13,27 +13,7 @@ login_manager = LoginManager()
 bcrypt = Bcrypt()
 csrf = CSRFProtect()
 
-# Patches for Werkzeug compatibility
-import werkzeug
-import flask_login.utils
-import flask_wtf.recaptcha.widgets
-
-def new_url_decode(value, charset='utf-8', errors='replace', separator='&'):
-    return werkzeug.datastructures.MultiDict(
-        werkzeug.urls.url_parse(value).query_params.items(multi=True)
-    )
-
-def new_url_encode(obj, charset='utf-8', encode_keys=False, sort=False, separator='&'):
-    return werkzeug.urls.url_unparse(
-        werkzeug.urls.url_encode(obj, charset=charset, encode_keys=encode_keys, sort=sort, separator=separator)
-    )
-
-# Apply the patches
-flask_login.utils.url_decode = new_url_decode
-flask_wtf.recaptcha.widgets.url_encode = new_url_encode
-
 def create_app(config_class=Config):
-    # Create Flask app
     app = Flask(__name__)
     app.config.from_object(config_class)
 
@@ -54,17 +34,11 @@ def create_app(config_class=Config):
     from app.routes.profile import profile_bp
     from app.routes.projects import projects_bp
     from app.routes.tasks import tasks_bp
-    from app.routes.api import api_bp
 
     app.register_blueprint(auth_bp)
     app.register_blueprint(admin_bp)
     app.register_blueprint(profile_bp)
     app.register_blueprint(projects_bp)
     app.register_blueprint(tasks_bp)
-    app.register_blueprint(api_bp)
-
-    # Create database tables if not already present
-    with app.app_context():
-        db.create_all()
 
     return app

@@ -1,8 +1,8 @@
 from flask import Blueprint, render_template, redirect, url_for, flash, request
 from flask_login import login_user, logout_user, login_required, current_user
 from app import db
-from app.models import User
 from app.forms import RegistrationForm, LoginForm
+from app.models import User
 
 auth_bp = Blueprint('auth', __name__)
 
@@ -13,18 +13,11 @@ def register():
 
     form = RegistrationForm()
     if form.validate_on_submit():
-        user = User.query.filter_by(email=form.email.data).first()
-        if user:
-            flash('Email is already registered.', 'danger')
-        else:
-            new_user = User(email=form.email.data, password=form.password.data)
-            if User.query.count() == 0:
-                new_user.is_admin = True
-
-            db.session.add(new_user)
-            db.session.commit()
-            flash('Registration successful! You can now log in.', 'success')
-            return redirect(url_for('auth.login'))
+        user = User(email=form.email.data, password=form.password.data)
+        db.session.add(user)
+        db.session.commit()
+        flash('Registration successful! You can now log in.', 'success')
+        return redirect(url_for('auth.login'))
     return render_template('register.html', form=form)
 
 @auth_bp.route('/login', methods=['GET', 'POST'])
@@ -38,8 +31,7 @@ def login():
         if user and user.verify_password(form.password.data):
             login_user(user, remember=form.remember.data)
             flash('Login successful!', 'success')
-            next_page = request.args.get('next')
-            return redirect(next_page) if next_page else redirect(url_for('main.index'))
+            return redirect(url_for('main.index'))
         else:
             flash('Invalid email or password.', 'danger')
     return render_template('login.html', form=form)
