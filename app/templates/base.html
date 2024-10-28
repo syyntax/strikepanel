@@ -17,7 +17,8 @@
 </head>
 <body class="d-flex flex-column min-vh-100" style="background-color: #121212;">
 
-    <!-- Navbar -->
+    <!-- Navbar (Hidden on login page) -->
+    {% if request.endpoint != 'auth.login' %}
     <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #1a1a1a; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);">
         <div class="container-fluid">
             <a class="navbar-brand roboto-bold text-primary" href="{{ url_for('main.index') }}">StrikePanel</a>
@@ -53,6 +54,7 @@
             </div>
         </div>
     </nav>
+    {% endif %}
 
     <!-- Main Content -->
     <main class="container mt-5 mb-4">
@@ -69,12 +71,14 @@
         {% block content %}{% endblock %}
     </main>
 
-    <!-- Footer -->
-    <footer class="bg-dark text-light py-4 mt-auto" style="border-top: 1px solid #2e2e2e;">
+    <!-- Footer (Only displayed if not on login page) -->
+    {% if request.endpoint != 'auth.login' %}
+    <footer class="bg-dark text-light py-3 mt-auto" style="border-top: 1px solid #2e2e2e;">
         <div class="container text-center">
             <p class="mb-0 roboto-light">© {{ current_year }} StrikePanel. All rights reserved.</p>
         </div>
     </footer>
+    {% endif %}
 
     <!-- Bootstrap JS and dependencies -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>

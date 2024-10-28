@@ -190,3 +190,9 @@ a:hover {
     font-size: 0.9rem;
   }
 }
+
+footer {
+  background-color: #1a1a1a;
+  color: #b0b0b0;
+  border-top: 1px solid #2e2e2e;
+}
