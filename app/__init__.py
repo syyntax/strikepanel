@@ -13,16 +13,24 @@ login_manager = LoginManager()
 bcrypt = Bcrypt()
 csrf = CSRFProtect()
 
-# Patch for Flask-Login to be compatible with Werkzeug 3.0+
+# Patches for Werkzeug compatibility
 import werkzeug
 import flask_login.utils
+import flask_wtf.recaptcha.widgets
 
 def new_url_decode(value, charset='utf-8', errors='replace', separator='&'):
     return werkzeug.datastructures.MultiDict(
         werkzeug.urls.url_parse(value).query_params.items(multi=True)
     )
 
+def new_url_encode(obj, charset='utf-8', encode_keys=False, sort=False, separator='&'):
+    return werkzeug.urls.url_unparse(
+        werkzeug.urls.url_encode(obj, charset=charset, encode_keys=encode_keys, sort=sort, separator=separator)
+    )
+
+# Apply the patches
 flask_login.utils.url_decode = new_url_decode
+flask_wtf.recaptcha.widgets.url_encode = new_url_encode
 
 def create_app(config_class=Config):
     # Create Flask app
