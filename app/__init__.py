@@ -34,11 +34,13 @@ def create_app(config_class=Config):
     from app.routes.profile import profile_bp
     from app.routes.projects import projects_bp
     from app.routes.tasks import tasks_bp
+    from app.routes.main import main_bp
 
     app.register_blueprint(auth_bp)
     app.register_blueprint(admin_bp)
     app.register_blueprint(profile_bp)
     app.register_blueprint(projects_bp)
     app.register_blueprint(tasks_bp)
+    app.register_blueprint(main_bp)
 
     return app

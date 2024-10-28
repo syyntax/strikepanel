@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="roboto-bold">Welcome to StrikePanel</h1>
+    <p class="roboto-regular">This is your command center for penetration testing projects. Please log in or register to get started.</p>
+    {% if current_user.is_authenticated %}
+        <a href="{{ url_for('projects.index') }}" class="primary-btn">View Your Projects</a>
+    {% else %}
+        <a href="{{ url_for('auth.login') }}" class="primary-btn">Log In</a>
+        <a href="{{ url_for('auth.register') }}" class="secondary-btn">Register</a>
+    {% endif %}
+</div>
+{% endblock %}
